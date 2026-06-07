@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="mb-3">Find Players</h2>
+
+<!-- FILTER SECTION -->
+<form method="get" class="row g-2 mb-4">
+
+    <div class="col-md-3">
+        <input type="text" name="sport" class="form-control" placeholder="Sport">
+    </div>
+
+    <div class="col-md-3">
+        <input type="text" name="location" class="form-control" placeholder="Location">
+    </div>
+
+    <div class="col-md-2">
+        <input type="number" name="min_age" class="form-control" placeholder="Min Age">
+    </div>
+
+    <div class="col-md-2">
+        <input type="number" name="max_age" class="form-control" placeholder="Max Age">
+    </div>
+
+    <div class="col-md-2">
+        <button class="btn btn-primary w-100">Search</button>
+    </div>
+
+</form>
+
+<!-- PLAYER CARDS -->
+<div class="row">
+
+    {% for player in players %}
+    <div class="col-md-4 mb-3">
+
+        <div class="card shadow-sm">
+
+            {% if player.profile_image %}
+            <img src="{{ player.profile_image.url }}" class="card-img-top" style="height:220px; object-fit:cover;">
+            {% endif %}
+
+            <div class="card-body">
+
+                <h5>{{ player.user.username }}</h5>
+
+                <p class="mb-1"><b>Sport:</b> {{ player.sport }}</p>
+                <p class="mb-1"><b>Position:</b> {{ player.position }}</p>
+                <p class="mb-1"><b>Age:</b> {{ player.age }}</p>
+                <p class="mb-1"><b>Location:</b> {{ player.location }}</p>
+
+                <a href="{% url 'player_profile' player.pk %}" class="btn btn-dark btn-sm mt-2">
+                    View Profile
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

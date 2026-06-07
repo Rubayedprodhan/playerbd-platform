@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Featured Players</h2>
+
+<div class="row">
+    {% for p in featured_players %}
+    <div class="col-md-4">
+        <div class="card p-2 mb-3">
+            <h5>{{ p.user.username }}</h5>
+            <p>{{ p.sport }}</p>
+            <a href="{% url 'player_profile' p.id %}" class="btn btn-dark btn-sm">View</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+<h2>Top Players</h2>
+
+<div class="row">
+    {% for p in top_players %}
+    <div class="col-md-4">
+        <div class="card p-2 mb-3 border-warning">
+            <h5>🔥 {{ p.user.username }}</h5>
+            <p>⭐ Rating: {{ p.total_rating }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+<h2>Latest Players</h2>
+
+<div class="row">
+    {% for p in latest_players %}
+    <div class="col-md-4">
+        <div class="card p-2 mb-3">
+            <h5>{{ p.user.username }}</h5>
+            <p>{{ p.location }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

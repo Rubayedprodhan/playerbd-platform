@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card p-3">
+
+    <h2>{{ player.user.username }}</h2>
+
+    {% if player.profile_image %}
+        <img src="{{ player.profile_image.url }}" width="150">
+    {% endif %}
+
+    <p><b>Sport:</b> {{ player.sport }}</p>
+    <p><b>Position:</b> {{ player.position }}</p>
+    <p><b>Age:</b> {{ player.age }}</p>
+    <p><b>Location:</b> {{ player.location }}</p>
+    <p><b>Average Rating:</b> ⭐ {{ player.avg_rating }}</p>
+    <p><b>Experience:</b> {{ player.experience }} years</p>
+    <p><b>Bio:</b> {{ player.bio }}</p>
+
+    {% if player.highlight_video %}
+        <a href="{{ player.highlight_video }}" target="_blank">Watch Highlight</a>
+    {% endif %}
+
+    <a href="{% url 'edit_player' player.pk %}" class="btn btn-warning mt-3">
+        Edit Profile
+    </a>
+
+</div>
+<h4 class="mt-4">Reviews</h4>
+
+{% for review in player.reviews.all %}
+    <div class="border p-2 mb-2">
+
+        <b>{{ review.reviewer.username }}</b> - ⭐ {{ review.rating }}
+
+        <p>{{ review.comment }}</p>
+
+    </div>
+{% empty %}
+    <p>No reviews yet.</p>
+{% endfor %}
+
+<a href="/reviews/add/{{ player.id }}/" class="btn btn-primary mt-3">
+    Add Review
+</a>
+{% endblock %}
